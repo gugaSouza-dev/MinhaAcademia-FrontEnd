@@ -16,6 +16,7 @@ section{
     /* background: no-repeat, center, center, fixed; */
 }
 
+
 .container{
     position: relative;
     width: 900px;
@@ -86,7 +87,7 @@ section{
     width: 100%;
     padding: 10px;
     background: #dfdfdf;
-    color: #333;
+    color: black;
     border: none;
     outline: none;
     box-shadow: none;
@@ -135,13 +136,6 @@ section{
     pointer-events: none;
 }
 
-/* .registro .formContainer input[type="submit"]{
-    transform: translateX(270px)
-}
-
-.registro .formContainer p{
-    transform: translateX(204px)
-} */
 
 .container .registro{
     pointer-events: none;

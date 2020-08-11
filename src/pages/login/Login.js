@@ -1,28 +1,31 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import swal from 'sweetalert';
-import validator from 'email-validator';
 import "./Login.css";
 import login from '../../assets/img/login.jpg';
 import registro from '../../assets/img/registro.jpg';
 import ocean from '../../assets/img/ocean.jpg';
 import logo from '../../assets/img/camaleao.jpg';
 
+
+//Ativa a animaçao do login/registro
 function toggleForm() {
     var container = document.querySelector('.container');
     container.classList.toggle('active')
 }
+const initialState = {
+    email: "",
+    senha: "",
+    erroEmail: "",
+    ErroSenha: ""
+};
 
 
 export default class Login extends Component {
     constructor() {
         super();
 
-        this.state = {
-            email: '',
-            senha: '',
-            // confSenha: ''
-        }
+        this.state = initialState;
     }
 
     cadastroFeito() {
@@ -42,7 +45,7 @@ export default class Login extends Component {
         });
     }
 
-    emailInvalido(){
+    emailInvalido() {
         swal({
             text: "Email inválido",
             icon: "error",
@@ -58,9 +61,25 @@ export default class Login extends Component {
         this.setState({ senha: event.target.value });
     }
 
-    // atualizaEstadocConfSenha(event) {
-    //     this.setState({ confSenha: event.target.value });
-    // }
+
+    validate() {
+        let erroEmail = "";
+
+        if (!this.state.email) {
+            erroEmail = "Email obrigatório";
+        }
+
+        if (!this.state.email.includes("@")) {
+            erroEmail = "Email invalido"
+        }
+
+        if (erroEmail) {
+            this.setState({ erroEmail });
+            return false;
+        }
+
+        return true;
+    };
 
     efetuaLogin(event) {
         event.preventDefault();
@@ -76,7 +95,7 @@ export default class Login extends Component {
             .catch(erro => {
                 console.log(erro);
             })
-            .finally(data =>{
+            .finally(data => {
                 this.props.history.push('/');
             })
     }
@@ -84,34 +103,28 @@ export default class Login extends Component {
 
     cadastraUsuario = (event) => {
         event.preventDefault();
-        if (this.state.senha.length < 7) {
-            document.getElementById('senhaMensagem').style.color = 'rgba(255, 75, 75, 0.686)';
-            document.getElementById('senhaMensagem').innerHTML = 'Senha precisa ter mais que 7 caracteres';
+
+        const campoValido = this.validate();
+        if (campoValido) {
+            axios.post('http://localhost:3333/registro', {
+                email: this.state.email,
+                senha: this.state.senha
+            })
+                .then(data => {
+                    this.cadastroFeito();
+                    localStorage.setItem("academia", data.data.token);
+                    console.log(data);
+                    this.setState(this.initalState);
+                    this.props.history.push('/');
+                })
+                .catch(erro => {
+                    this.emailJaExiste();
+                    console.log(erro);
+                })
 
         } else {
-
-            if (validator.validate(this.state.email)) {
-
-                axios.post('http://localhost:3333/registro', {
-                    email: this.state.email,
-                    senha: this.state.senha
-                })
-                    .then(data => {
-                        this.cadastroFeito();
-                        localStorage.setItem("academia", data.data.token);
-                        console.log(data);
-                    })
-                    .catch(erro => {
-                        this.emailJaExiste();
-                        console.log(erro);
-                    })
-                    .finally(data =>{
-                        this.props.history.push('/');
-                    })
-            } else {
-                console.log("email invalido")
-                this.emailInvalido();
-            }
+            console.log("email invalido");
+            this.emailInvalido();
         }
     }
 
@@ -131,7 +144,6 @@ export default class Login extends Component {
                                 </div>
                                 <h2>Login</h2>
                                 <input
-                                    // className="login_email"
                                     placeholder="Email"
                                     type="text"
                                     value={this.state.email}
@@ -139,7 +151,6 @@ export default class Login extends Component {
                                 />
 
                                 <input
-                                    // className="login_senha"
                                     placeholder="Senha"
                                     type="password"
                                     value={this.state.senha}
@@ -152,11 +163,8 @@ export default class Login extends Component {
 
                     </div>
 
-
                     <div className="registro">
-
                         <div className="formContainer">
-
                             <form id="form" onSubmit={this.cadastraUsuario.bind(this)}>
                                 <div className="logo">
                                     <img className="logoImg" src={logo} alt="Logo em forma de camaleao" />
@@ -170,6 +178,7 @@ export default class Login extends Component {
                                     onChange={this.atualizaEstadoEmail.bind(this)}
                                 />
                                 <input
+                                    id="senha"
                                     placeholder="Senha"
                                     type="password"
                                     required={true}
@@ -177,17 +186,6 @@ export default class Login extends Component {
                                     minLength={7}
                                     onChange={this.atualizaEstadoSenha.bind(this)}
                                 />
-                                <div className="senhaMsg">
-                                    <span id='senhaMensagem'></span>
-                                </div>
-                                {/* 
-                                <input
-                                    placeholder="Confirme senha"
-                                    type="password"
-                                    required={true}
-                                    value={this.state.confSenha}
-                                    onChange={this.atualizaEstadocConfSenha.bind(this)}
-                                /> */}
                                 <input type="submit" value="Entrar" />
                                 <p className="signUp">Já possui conta? <a onClick={toggleForm}>  Login</a></p>
                             </form>

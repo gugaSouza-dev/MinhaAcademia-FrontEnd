@@ -28,6 +28,7 @@ export default class Login extends Component {
         this.state = initialState;
     }
 
+    //PopIn's de cadastro de usuario
     cadastroFeito() {
         swal({
             title: "Boa!",
@@ -53,6 +54,7 @@ export default class Login extends Component {
         });
     }
 
+
     atualizaEstadoEmail(event) {
         this.setState({ email: event.target.value });
     }
@@ -60,26 +62,7 @@ export default class Login extends Component {
     atualizaEstadoSenha(event) {
         this.setState({ senha: event.target.value });
     }
-
-
-    validate() {
-        let erroEmail = "";
-
-        if (!this.state.email) {
-            erroEmail = "Email obrigatório";
-        }
-
-        if (!this.state.email.includes("@")) {
-            erroEmail = "Email invalido"
-        }
-
-        if (erroEmail) {
-            this.setState({ erroEmail });
-            return false;
-        }
-
-        return true;
-    };
+    
 
     efetuaLogin(event) {
         event.preventDefault();
@@ -99,6 +82,26 @@ export default class Login extends Component {
                 this.props.history.push('/');
             })
     }
+
+    //verifica a se os campos do cadastro sao validos
+    validate() {
+        let erroEmail = "";
+
+        if (!this.state.email) {
+            erroEmail = "Email obrigatório";
+        }
+
+        if (!this.state.email.includes("@")) {
+            erroEmail = "Email invalido"
+        }
+
+        if (erroEmail) {
+            this.setState({ erroEmail });
+            return false;
+        }
+
+        return true;
+    };
 
 
     cadastraUsuario = (event) => {

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 // import './index.css';
 import App from './App';
 import Login from './pages/login/Login';
+import CadastraAcademia from './pages/cadastraAcademia/CadastraAcademia'
 
 import {Route, BrowserRouter as Router, Switch} from 'react-router-dom';
 
@@ -14,6 +15,7 @@ const rotas =(
             <Switch>
                 <Route exact path="/" component={App} />
                 <Route path="/login" component={Login}/>
+                <Route path="/academia/criar" component={CadastraAcademia}/>
             </Switch>
         </div>
     </Router>

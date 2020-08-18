@@ -108,6 +108,35 @@ section{
     transition: 0.5s;
 
 }
+
+.formContainerError input[type="password"]{
+    border: 2px solid rgba(255, 40, 40, 0.5);
+}
+
+.formContainerCheck input[type="password"]{
+    border: 2px solid green;
+}
+
+
+.statusIcon div{
+
+    width: 25px;
+    height:5px;
+    background-color:black;
+    margin: 5px;
+    transition: all 0.3s ease;
+}
+
+.statusToggle .statusIcon-l1{
+    transform: rotate(-45deg) translate(-5px, 8px);
+}
+.statusToggle .statusIcon-l2{
+    transform: rotate(45deg) translate(-5px, -8px);
+}
+
+
+
+
 .signUp{
     position: relative;
     margin-top: 20px;
@@ -135,6 +164,8 @@ section{
     overflow: hidden;
     pointer-events: none;
 }
+
+
 
 
 .container .registro{

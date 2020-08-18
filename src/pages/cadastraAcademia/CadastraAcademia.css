@@ -7,15 +7,75 @@
     box-sizing: border-box;
 }
 
-.CAContent{
+.CAContainer{
+    /* overflow-y: scroll; */
+    display: flex;
+    align-items: flex-end;
     height: 100%;
     width: 100%;
-    background-color: darkmagenta;
+    background-color:white;
+    justify-content: flex-start;
+}
+
+.CAContaint{
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+.linha{
+    width: 100%;
+    height: 2px;
+    background-color: rgba(0, 0, 0, 0.285);
+    margin-bottom: 10px;
 
 }
-.containt{
-    height: 90%;
+
+.CAFormContainer h2{
+    margin: 80px 0 0 40px;
+}
+
+.CAFormContainer form{
+    height: auto;
+    background-color: white;
+    background: white;
+    padding: 40px;
+}
+
+.CAFormContainer form h2{
+    font-size: 30px
+}
+
+.CAFormContainer form input{
+    position: relative;
     width: 90%;
-    flex-direction: column;
-    background-color: peru
+    padding: 10px;
+    background: #dfdfdf;
+    color: black;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    margin: 8px 0;
+    font-size: 14px;
+    letter-spacing: 1px;
+    font-weight: 300;
+}
+
+.CAFormContainer input[type="submit"]{
+    width: 45%;
+    background: darkcyan;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    transition: 0.5s;
+
+}
+
+.CAFormContainer from p{
+    text-decoration: none;
+
 }

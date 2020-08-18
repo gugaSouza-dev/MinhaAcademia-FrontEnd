@@ -20,12 +20,28 @@ const initialState = {
     ErroSenha: ""
 };
 
+function inputError() {
+    var status = document.querySelector('.formContainer');
+
+    status.classList.toggle('formContainerError');
+}
+
+
+//    I  M  P  O  R  T  A  N  T  E
+// Melhorar a experiencia de usuario usando algumas praticas
+// https://medium.com/@allanroubertie/12-dicas-de-ux-para-criar-formul%C3%A1rios-eficientes-6fc621a3ea05
+
 
 export default class Login extends Component {
     constructor() {
         super();
 
-        this.state = initialState;
+        this.state = {
+            email: "",
+            senha: "",
+            erroEmail: "",
+            ErroSenha: ""
+        };
     }
 
     //PopIn's de cadastro de usuario
@@ -62,9 +78,8 @@ export default class Login extends Component {
     atualizaEstadoSenha(event) {
         this.setState({ senha: event.target.value });
     }
-    
 
-    efetuaLogin(event) {
+    efetuaLogin = (event) => {
         event.preventDefault();
 
         axios.post('http://localhost:3333/login', {
@@ -74,12 +89,13 @@ export default class Login extends Component {
             .then(data => {
                 localStorage.setItem("academia", data.data.token);
                 console.log(data);
+                this.props.history.push('/');
+                // this.setState(this.initalState);
+
             })
             .catch(erro => {
+                this.emailJaExiste();
                 console.log(erro);
-            })
-            .finally(data => {
-                this.props.history.push('/');
             })
     }
 
@@ -117,8 +133,9 @@ export default class Login extends Component {
                     this.cadastroFeito();
                     localStorage.setItem("academia", data.data.token);
                     console.log(data);
-                    this.setState(this.initalState);
                     this.props.history.push('/');
+                    // this.setState(this.initalState);
+
                 })
                 .catch(erro => {
                     this.emailJaExiste();
@@ -158,8 +175,10 @@ export default class Login extends Component {
                                     type="password"
                                     value={this.state.senha}
                                     onChange={this.atualizaEstadoSenha.bind(this)}
+
                                 />
-                                <input type="submit" value="Entrar" />
+
+                                <input type="submit" value="Entrar" onSubmit={this.efetuaLogin} />
                                 <p className="signUp">Nâo possui conta? <a onClick={toggleForm}>  Registre-se</a></p>
                             </form>
                         </div>
@@ -179,6 +198,7 @@ export default class Login extends Component {
                                     required={true}
                                     value={this.state.email}
                                     onChange={this.atualizaEstadoEmail.bind(this)}
+
                                 />
                                 <input
                                     id="senha"
@@ -189,6 +209,7 @@ export default class Login extends Component {
                                     minLength={7}
                                     onChange={this.atualizaEstadoSenha.bind(this)}
                                 />
+
                                 <input type="submit" value="Entrar" />
                                 <p className="signUp">Já possui conta? <a onClick={toggleForm}>  Login</a></p>
                             </form>
@@ -196,6 +217,7 @@ export default class Login extends Component {
                         <div className="imgContainer">
                             <img className="img" src={registro} alt="Imagem meramente ilustrativa ao lado do registro" />
                         </div>
+
                     </div>
                 </div>
             </section>

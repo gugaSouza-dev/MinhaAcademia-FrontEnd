@@ -5,6 +5,7 @@ import "./CadastraAcademia.css";
 import Header from '../../components/header/Header';
 
 const initialState = {
+    nome_resp: '',
     nome_acad: '',
     tel_resp: '',
     tel_acad: '',
@@ -26,46 +27,145 @@ export default class CadastraAcademia extends Component {
         this.state = initialState;
 
     }
-    cadastraConsulta(event) {
+
+    atualizaEstadoNomeResp(event) {
+        this.setState({ nome_resp: event.target.value });
+    }
+
+    atualizaEstadoNomeAcad(event) {
+        this.setState({ nome_acad: event.target.value });
+    }
+
+    atualizaEstadoTelResp(event) {
+        this.setState({ tel_resp: event.target.value });
+    }
+
+    atualizaEstadoTelAcad(event) {
+        this.setState({ tel_acad: event.target.value });
+    }
+
+    atualizaEstadoRua(event) {
+        this.setState({ rua: event.target.value });
+    }
+
+    atualizaEstadoNumero(event) {
+        this.setState({ numero: event.target.value });
+    }
+
+    atualizaEstadoComplemento(event) {
+        this.setState({ complemento: event.target.value });
+    }
+
+    atualizaEstadoCep(event) {
+        this.setState({ cep: event.target.value });
+    }
+
+    atualizaEstadoCidade(event) {
+        this.setState({ cidade: event.target.value });
+    }
+
+    atualizaEstadoEstado(event) {
+        this.setState({ estado: event.target.value });
+    }
+
+    cadastraAcademia = (event) => {
         event.preventDefault();
+        console.log("amm oi?")
 
-        let consulta = this.state;
-
-        axios.post('http://localhost:3333/academia', consulta, {
+        const academia = this.state;
+    
+        axios.post('http://localhost:3333/academias', academia, {
             headers: {
                 "Authorization": "Bearer " + localStorage.getItem("academia"),
                 "Content-Type": "application/json"
             }
         })
-            .then(res => {
-                if (res.status == 200)
-                    this.buscarConsultas()
+            .then(data => {
+                console.log(data);
+                this.props.history.push('/');
+                // this.setState(this.initalState);
+
             })
             .catch(erro => {
                 console.log(erro);
             })
     }
 
+
     render() {
         return (
-            <section className="CAContent">
+            <section className="CAContainer">
                 <Header />
-                {/* <div className="containt">
-                    <div className="formContainer">
-                        <div className="info">
-                            <h2>Informaçôes</h2>
-                        </div>
-                        <div className="infoLocal">
-                            <h2>Local</h2>
-                            <input
-                                placeholder="Rua"
-                                type="text"
-                                required={true}
-                            // onChange={this.atualizaEstadoEmail.bind(this)}
-                            />
-                        </div>
-                    </div>
-                </div> */}
+                <div className="CAFormContainer">
+                        <h2>Cadastre sua academia</h2>
+
+                    <form id="CAFrom" >
+                        <div className="linha"></div>
+                        <p>Nome do responsável</p>
+                        <input
+                            type="text"
+                            value={this.state.nome_resp}
+                            onChange={this.atualizaEstadoNomeResp.bind(this)}
+                        />
+                        <p>Nome da academia</p>
+                        <input
+                            type="text"
+                            value={this.state.nome_acad}
+                            onChange={this.atualizaEstadoNomeAcad.bind(this)}
+                        />
+                        <p>Telefone do responsável</p>
+                        <input
+                            type="text"
+                            value={this.state.tel_resp}
+                            onChange={this.atualizaEstadoTelResp.bind(this)}
+                        />
+                        <p>Telefone da academia</p>
+                        <input
+                            type="text"
+                            value={this.state.tel_acad}
+                            onChange={this.atualizaEstadoTelAcad.bind(this)}
+                        />
+                        <p>Rua</p>
+                        <input
+                            type="text"
+                            value={this.state.rua}
+                            onChange={this.atualizaEstadoRua.bind(this)}
+                        />
+                        <p>Número</p>
+                        <input
+                            type="tel"
+                            value={this.state.numero}
+                            onChange={this.atualizaEstadoNumero.bind(this)}
+                        />
+                        <p>Complemento</p>
+                        <input
+                            type="text"
+                            value={this.state.complemento}
+                            onChange={this.atualizaEstadoComplemento.bind(this)}
+                        />
+                        <p>CEP</p>
+                        <input
+                            type="text"
+                            value={this.state.cep}
+                            onChange={this.atualizaEstadoCep.bind(this)}
+                        />
+                        <p>Cidade</p>
+                        <input
+                            type="text"
+                            value={this.state.cidade}
+                            onChange={this.atualizaEstadoCidade.bind(this)}
+                        />
+                        <p>Estado</p>
+                        <input
+                            type="text"
+                            value={this.state.estado}
+                            onChange={this.atualizaEstadoEstado.bind(this)}
+                        />
+
+                        <input type="submit" value="Cadastrar" onClick={this.cadastraAcademia} />
+                    </form>
+                </div>
+
             </section>
         );
     }

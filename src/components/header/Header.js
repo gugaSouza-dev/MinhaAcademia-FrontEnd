@@ -20,6 +20,10 @@ function burgerSlide() {
     burger.classList.toggle('toggle');
 }
 
+window.addEventListener("scroll",function () {
+    const header = document.querySelector(".header");
+    header.classList.toggle("fixo", window.scrollY > 0);
+})
 
 function Header() {
     return (

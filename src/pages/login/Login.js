@@ -148,10 +148,9 @@ export default class Login extends Component {
         }
     }
 
-
     render() {
         return (
-            <section style={{ backgroundImage: `url(${ocean})`, backgroundSize: 'cover' }}>
+            <section className="loginSection">
                 <div className="container">
                     <div className="login">
                         <div className="imgContainer">

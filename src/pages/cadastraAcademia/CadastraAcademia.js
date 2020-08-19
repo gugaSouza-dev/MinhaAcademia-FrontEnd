@@ -73,7 +73,7 @@ export default class CadastraAcademia extends Component {
         console.log("amm oi?")
 
         const academia = this.state;
-    
+
         axios.post('http://localhost:3333/academias', academia, {
             headers: {
                 "Authorization": "Bearer " + localStorage.getItem("academia"),
@@ -94,13 +94,20 @@ export default class CadastraAcademia extends Component {
 
     render() {
         return (
-            <section className="CAContainer">
+            <section className="CASection">
                 <Header />
+                <div className="CALeftSide">
+
+                </div>
                 <div className="CAFormContainer">
+                    <div className="CATexto">
+
                         <h2>Cadastre sua academia</h2>
+                        <p>Precisamos saber algumas informações sobre a sua academia. Lembre-se de que todas as informações poderão ser alteradas posteriormente.</p>
+                    </div>
 
                     <form id="CAFrom" >
-                        <div className="linha"></div>
+                    <div className="linha"></div>
                         <p>Nome do responsável</p>
                         <input
                             type="text"
@@ -165,7 +172,9 @@ export default class CadastraAcademia extends Component {
                         <input type="submit" value="Cadastrar" onClick={this.cadastraAcademia} />
                     </form>
                 </div>
+                <div className="CARightSide">
 
+                </div>
             </section>
         );
     }

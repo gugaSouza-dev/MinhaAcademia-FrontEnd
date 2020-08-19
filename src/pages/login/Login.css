@@ -6,14 +6,18 @@
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
 }
-section{
+
+
+
+.loginSection{
     position: relative;
-    min-height:100vh;
+    height: 100vh;
+    width: 100vw;
+    background-image: url("/static/media/ocean.40a5e9ba.jpg");
+    background-size: cover;
     display: flex;
-    justify-content: center;   
+    justify-content: center;
     align-items: center;
-    padding: 20px;
-    /* background: no-repeat, center, center, fixed; */
 }
 
 

@@ -1,0 +1,20 @@
+.footer{
+    height: 20vh;
+    width: 100vw;
+    display: flex;
+    justify-content:center;
+    align-items:center;
+    background-color: black;
+}
+.footerContainer{
+    height: 50%;
+    width: 80%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-start
+}
+.footerContainer a,
+.footerContainer p{
+    font-size: 15px;
+    color: white
+}

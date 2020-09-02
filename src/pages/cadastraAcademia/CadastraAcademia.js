@@ -3,7 +3,8 @@ import axios from 'axios';
 import swal from 'sweetalert';
 import "./CadastraAcademia.css";
 import Header from '../../components/header/Header';
-import Footer from '../../components/footer/Footer'
+import Footer from '../../components/footer/Footer';
+import ViaCep from 'react-via-cep';
 
 const initialState = {
     nome_resp: '',
@@ -17,7 +18,6 @@ const initialState = {
     cidade: '',
     estado: ''
 };
-
 
 
 
@@ -69,9 +69,10 @@ export default class CadastraAcademia extends Component {
         this.setState({ estado: event.target.value });
     }
 
+
+
     cadastraAcademia = (event) => {
         event.preventDefault();
-        console.log("amm oi?")
 
         const academia = this.state;
 
@@ -106,71 +107,106 @@ export default class CadastraAcademia extends Component {
                             <p>Precisamos saber algumas informações sobre a sua academia. Lembre-se de que todas as informações poderão ser alteradas posteriormente.</p>
                         </div>
 
-                        <form id="CAFrom" >
-                            <div className="linha"></div>
-                            <p>Nome do responsável</p>
-                            <input
-                                type="text"
-                                value={this.state.nome_resp}
-                                onChange={this.atualizaEstadoNomeResp.bind(this)}
-                            />
-                            <p>Nome da academia</p>
-                            <input
-                                type="text"
-                                value={this.state.nome_acad}
-                                onChange={this.atualizaEstadoNomeAcad.bind(this)}
-                            />
-                            <p>Telefone do responsável</p>
-                            <input
-                                type="text"
-                                value={this.state.tel_resp}
-                                onChange={this.atualizaEstadoTelResp.bind(this)}
-                            />
-                            <p>Telefone da academia</p>
-                            <input
-                                type="text"
-                                value={this.state.tel_acad}
-                                onChange={this.atualizaEstadoTelAcad.bind(this)}
-                            />
-                            <p>Rua</p>
-                            <input
-                                type="text"
-                                value={this.state.rua}
-                                onChange={this.atualizaEstadoRua.bind(this)}
-                            />
-                            <p>Número</p>
-                            <input
-                                type="tel"
-                                value={this.state.numero}
-                                onChange={this.atualizaEstadoNumero.bind(this)}
-                            />
-                            <p>Complemento</p>
-                            <input
-                                type="text"
-                                value={this.state.complemento}
-                                onChange={this.atualizaEstadoComplemento.bind(this)}
-                            />
-                            <p>CEP</p>
-                            <input
-                                type="text"
-                                value={this.state.cep}
-                                onChange={this.atualizaEstadoCep.bind(this)}
-                            />
-                            <p>Cidade</p>
-                            <input
-                                type="text"
-                                value={this.state.cidade}
-                                onChange={this.atualizaEstadoCidade.bind(this)}
-                            />
-                            <p>Estado</p>
-                            <input
-                                type="text"
-                                value={this.state.estado}
-                                onChange={this.atualizaEstadoEstado.bind(this)}
-                            />
+                        <div className="linhaCont">
 
-                            <input type="submit" value="Cadastrar" onClick={this.cadastraAcademia} />
-                        </form>
+                            <div className="linha"></div>
+                        </div>
+
+                        <div className="CAFormContainer">
+                            <div className="CAFormAcademia">
+                                <div className="CAFormTitle">
+                                    <h3>Academia</h3>
+                                </div>
+                                <div className="CAFormInputs">
+                                    <form id="CAAcademiaInput">
+                                        <p>Nome da academia:</p>
+                                        <input
+                                            type="text"
+                                            value={this.state.nome_acad}
+                                            onChange={this.atualizaEstadoNomeAcad.bind(this)}
+                                        />
+
+                                        <p>Telefone da academia:</p>
+                                        <input
+                                            type="text"
+                                            value={this.state.tel_acad}
+                                            onChange={this.atualizaEstadoTelAcad.bind(this)}
+                                        />
+                                        <p>CEP:</p>
+                                        <input
+                                            type="text"
+                                            value={this.state.cep}
+                                            onChange={this.atualizaEstadoCep.bind(this)}
+                                        />
+                                        <p>Rua:</p>
+                                        <input
+                                            type="text"
+                                            value={this.state.rua}
+                                            onChange={this.atualizaEstadoRua.bind(this)}
+                                        />
+                                        <p>Número:</p>
+                                        <input
+                                            type="tel"
+                                            value={this.state.numero}
+                                            onChange={this.atualizaEstadoNumero.bind(this)}
+                                        />
+                                        <p>Complemento:</p>
+                                        <input
+                                            type="text"
+                                            value={this.state.complemento}
+                                            onChange={this.atualizaEstadoComplemento.bind(this)}
+                                        />
+                                        <p>Cidade:</p>
+                                        <input
+                                            type="text"
+                                            value={this.state.cidade}
+                                            onChange={this.atualizaEstadoCidade.bind(this)}
+                                        />
+                                        <p>Estado:</p>
+                                        <input
+                                            type="text"
+                                            value={this.state.estado}
+                                            onChange={this.atualizaEstadoEstado.bind(this)}
+                                        />
+                                    </form>
+                                </div>
+
+                            </div>
+                            <div className="linhaCont">
+                                <div className="linha"></div>
+                            </div>
+
+                            <div className="CAFormProprietario">
+                                <div className="CAFormTitle">
+                                    <h3>Responsável</h3>
+                                </div>
+                                <div className="CAFormInputs-Prop">
+                                    <form id="CAAcademiaInput">
+                                        <p>Nome do Responsável:</p>
+                                        <input
+                                            type="text"
+                                            value={this.state.nome_resp}
+                                            onChange={this.atualizaEstadoNomeResp.bind(this)}
+                                        />
+
+                                        <p>Telefone do Responsável:</p>
+                                        <input
+                                            type="text"
+                                            value={this.state.tel_resp}
+                                            onChange={this.atualizaEstadoTelResp.bind(this)}
+                                        />
+                                    </form>
+
+                                </div>
+                            </div>
+                            <div className="CAButton">
+                                <div className="CAButtonContainer">
+
+                                    <input type="submit" value="Cadastrar" onClick={this.cadastraAcademia} />
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                     <div className="CARightSide"></div>
                 </div>

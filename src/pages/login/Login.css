@@ -42,7 +42,6 @@
 .logo{
     display: flex;
     justify-content: center;
-    transform: translateY(-35px)
 }
 
 
